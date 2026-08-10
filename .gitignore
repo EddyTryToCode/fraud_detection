@@ -7,3 +7,7 @@ __pycache__/
 models/*.pkl
 models/*.json
 .env
+venv/
+data/raw/*.csv
+*.pyc
+__pycache__/

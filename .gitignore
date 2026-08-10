@@ -1,0 +1,9 @@
+venv/
+data/raw/*.csv
+data/raw/*.zip
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+models/*.pkl
+models/*.json
+.env

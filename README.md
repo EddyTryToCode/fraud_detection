@@ -2,7 +2,7 @@
 ### NeurIPS 2022 Benchmark SOTA • Algorithmic Fairness Debiasing • Dual-Level SHAP XAI • LLM Compliance Layer • FastAPI & Docker Serving
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
-[![XGBoost SOTA](https://img.shields.io/badge/XGBoost-AUROC%200.8895%20(SOTA)-orange.svg?logo=xgboost&logoColor=white)](https://xgboost.readthedocs.io/)
+[![XGBoost SOTA](https://img.shields.io/badge/XGBoost-AUROC%200.8895%20SOTA-orange.svg)](https://xgboost.readthedocs.io/)
 [![Fairlearn](https://img.shields.io/badge/Fairlearn-EOD%200.0000-success.svg)](https://fairlearn.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Serving%20Ready-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-Monitoring%20Dashboard-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
@@ -178,7 +178,7 @@ Hệ thống cung cấp biểu đồ Waterfall giải thích cho chuyên viên t
 
 ## 8. Lớp Dịch Ngôn Ngữ Tự Nhiên (LLM Compliance Explanation Layer)
 
-Hệ thống tích hợp module 📄 [src/llm_explainer.py](file:///home/host/fraud_detection/src/llm_explainer.py) với kiến trúc Dual-Engine:
+Hệ thống tích hợp module 📄 [src/llm_explainer.py](src/llm_explainer.py) với kiến trúc Dual-Engine:
 
 ```
 [SHAP Values Matrix] ──> [LLM Explainer Engine]
@@ -210,14 +210,14 @@ Hệ thống AI đề xuất CHẶN / CHUYỂN REVIEW THỦ CÔNG do phát hiệ
 - `GET /docs`: Swagger UI tương tác trực tiếp.
 
 ### 9.2. Kiểm Thử Cục Bộ (Test Suite)
-Đã kiểm thử qua file 📄 [tests/test_api.py](file:///home/host/fraud_detection/tests/test_api.py) với `TestClient`: **100% Passed**.
+Đã kiểm thử qua file 📄 [tests/test_api.py](tests/test_api.py) với `TestClient`: **100% Passed**.
 
 ```bash
 python tests/test_api.py
 ```
 
 ### 9.3. Đóng Gói Docker Compose
-Toàn bộ hệ thống được đóng gói qua 📄 [Dockerfile](file:///home/host/fraud_detection/Dockerfile) và 📄 [docker-compose.yml](file:///home/host/fraud_detection/docker-compose.yml):
+Toàn bộ hệ thống được đóng gói qua 📄 [Dockerfile](Dockerfile) và 📄 [docker-compose.yml](docker-compose.yml):
 
 ```bash
 # Khởi chạy toàn bộ hệ thống bằng Docker Compose
@@ -230,7 +230,7 @@ docker compose up --build
 
 ## 10. Bảng Điều Khiển Giám Sát & Cảnh Báo Trôi Dạt Dữ Liệu (Streamlit & KS-Drift)
 
-Ứng dụng 📄 [src/dashboard/app.py](file:///home/host/fraud_detection/src/dashboard/app.py) bao gồm 4 phân hệ chính:
+Ứng dụng 📄 [src/dashboard/app.py](src/dashboard/app.py) bao gồm 4 phân hệ chính:
 1. **⚡ Real-time Scoring & LLM Investigation**: Nhập liệu hồ sơ tương tác, đo rủi ro qua Gauge Chart và đọc báo cáo AI.
 2. **📈 Temporal Performance Simulation**: Theo dõi chỉ số AUROC và Recall giả lập qua 8 tháng.
 3. **⚖️ Fairness & Demographic Audit**: Biểu đồ so sánh 3 giải pháp debiasing theo nhóm tuổi.
@@ -308,7 +308,7 @@ streamlit run src/dashboard/app.py
 ```text
 fraud_detection/
 ├── .dockerignore
-├── .env                              # Biến môi trường (OPENAI_API_KEY)
+├── .env.example                      # Template cấu hình biến môi trường (copy → .env)
 ├── .gitignore
 ├── Dockerfile                        # Docker build recipe
 ├── docker-compose.yml                # Multi-service stack (FastAPI + Streamlit)

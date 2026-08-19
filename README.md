@@ -53,7 +53,7 @@ flowchart TD
     subgraph Data_Engineering["1. Data & Feature Layer"]
         A[Raw BAF Data<br/>1,000,000 Records] --> B[Missing Value Sentinel Handler<br/>Detect -1 values -> Binary Indicators]
         B --> C[ColumnTransformer Pipeline<br/>Median Imputer + Scaler + Ordinal Encoder]
-        C --> D[Temporal Out-Of-Time Split<br/>Train: Tháng 0-5 | Test: Tháng 6-7]
+        C --> D[Temporal Out-Of-Time Split<br/>Train: Tháng 0-5 vs Test: Tháng 6-7]
     end
 
     subgraph Modeling_Layer["2. Modeling & Fairness Optimization"]
@@ -102,8 +102,9 @@ flowchart TD
 
 ## 4. Mô Hình Hóa & Kết Quả Benchmark Vượt Chuẩn NeurIPS 2022
 
-Xử lý mất cân bằng dữ liệu bằng trọng số:
-$$\text{scale\_pos\_weight} = \frac{N_{\text{negative}}}{N_{\text{positive}}} = \frac{786,220}{8,769} \approx 96.53$$
+Xử lý mất cân bằng dữ liệu bằng trọng số (`scale_pos_weight`):
+
+$$\frac{N_{negative}}{N_{positive}} = \frac{786{,}220}{8{,}769} \approx 96.53$$
 
 ### Bảng So Sánh Hiệu Năng Mô Hình (Đánh giá trên 205,011 giao dịch tập Test OOT)
 

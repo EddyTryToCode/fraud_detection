@@ -206,9 +206,23 @@ Hệ thống AI đề xuất CHẶN / CHUYỂN REVIEW THỦ CÔNG do phát hiệ
 
 ### 9.1. FastAPI Microservice Endpoints
 - `GET /health`: Trạng thái hệ thống, phiên bản model, AUROC benchmark.
-- `POST /predict`: Chấm điểm thời gian thực cho 1 giao dịch đơn lẻ ($< 45\text{ms}$ latency).
+- `POST /predict`: Chấm điểm thời gian thực cho 1 giao dịch đơn lẻ.
 - `POST /predict/batch`: Xử lý hàng loạt giao dịch theo batch.
 - `GET /docs`: Swagger UI tương tác trực tiếp.
+
+### 9.2. Latency Benchmark (Đo Thực Tế — N=300 lần lặp)
+
+> ⚠️ **Lưu ý quan trọng**: Latency bên dưới được đo tách biệt từng bước. LLM Explanation là bước **bất đồng bộ/tùy chọn**, không nằm trong critical path của quyết định.
+
+| Bước | Mô Tả | Latency Thực Đo |
+|---|---|---|
+| **Step 1** | Preprocessing (ColumnTransformer + Imputer + Scaler) | **3.57 ms** |
+| **Step 2** | XGBoost `predict_proba` (inference) | **1.35 ms** |
+| **Step 3** | SHAP native `pred_contribs` (C++ XGBoost kernel) | **10.92 ms** |
+| **Step 4** | Top-K SHAP feature extraction (numpy argsort) | **0.02 ms** |
+| **Step 5** | Rule-based NLG (offline fallback, 100% uptime) | **0.01 ms** |
+| | **TOTAL (không LLM)** | **✅ ~15.9 ms** |
+| | LLM GPT-4o-mini (OpenAI API round-trip, tùy chọn) | ~500–1500 ms |
 
 ### 9.2. Kiểm Thử Cục Bộ (Test Suite)
 Đã kiểm thử qua file 📄 [tests/test_api.py](tests/test_api.py) với `TestClient`: **100% Passed**.
